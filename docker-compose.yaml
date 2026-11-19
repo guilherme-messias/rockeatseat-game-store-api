@@ -1,0 +1,10 @@
+services:
+  game-store-db:
+    image: postgres:18
+    container_name: game-store-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: game_store
+    ports:
+      - "5432:5432"
