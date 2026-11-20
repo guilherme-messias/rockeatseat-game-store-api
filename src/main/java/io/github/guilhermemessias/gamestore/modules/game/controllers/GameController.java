@@ -1,6 +1,6 @@
-package io.github.guilhermemessias.gamestore.game.controllers;
+package io.github.guilhermemessias.gamestore.modules.game.controllers;
 
-import io.github.guilhermemessias.gamestore.game.GameEntity;
+import io.github.guilhermemessias.gamestore.modules.game.GameEntity;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,6 +1,6 @@
-package io.github.guilhermemessias.gamestore.game;
+package io.github.guilhermemessias.gamestore.modules.game;
 
-import io.github.guilhermemessias.gamestore.game.enums.Genre;
+import io.github.guilhermemessias.gamestore.modules.game.enums.Genre;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

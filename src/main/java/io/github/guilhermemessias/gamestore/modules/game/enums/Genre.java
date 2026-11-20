@@ -1,4 +1,4 @@
-package io.github.guilhermemessias.gamestore.game.enums;
+package io.github.guilhermemessias.gamestore.modules.game.enums;
 
 public enum Genre {
     ACTION,
