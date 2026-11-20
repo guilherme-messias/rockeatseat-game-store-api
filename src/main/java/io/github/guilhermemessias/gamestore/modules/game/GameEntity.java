@@ -13,7 +13,7 @@ import java.util.UUID;
 public class GameEntity {
     private UUID id;
 
-    @NotBlank(message = "Title não pode estar vazio ou em branco")
+    @NotBlank(message = "Título não pode estar vazio ou em branco")
     private String title;
     private Genre genre;
 
