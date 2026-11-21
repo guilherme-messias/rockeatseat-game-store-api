@@ -5,7 +5,11 @@ import io.github.guilhermemessias.gamestore.modules.game.dtos.request.CreateGame
 import io.github.guilhermemessias.gamestore.modules.game.repositories.GameRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GameService {
@@ -14,5 +18,9 @@ public class GameService {
 
     public GameEntity createGame(@Valid CreateGameRequestDTO gameEntity) {
         return this.gameRepository.save(new GameEntity(gameEntity));
+    }
+
+    public Page<GameEntity> findAll(Pageable pageable) {
+        return this.gameRepository.findAll(pageable);
     }
 }
