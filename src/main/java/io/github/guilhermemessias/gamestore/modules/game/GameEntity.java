@@ -1,7 +1,9 @@
 package io.github.guilhermemessias.gamestore.modules.game;
 
+import io.github.guilhermemessias.gamestore.modules.game.dtos.request.CreateGameRequestDTO;
 import io.github.guilhermemessias.gamestore.modules.game.enums.Genre;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,4 +32,14 @@ public class GameEntity {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public GameEntity(@Valid CreateGameRequestDTO gameEntity) {
+        this.title = gameEntity.title();
+        this.genre = gameEntity.genre();
+        this.price = gameEntity.price();
+    }
+
+    public GameEntity() {
+
+    }
 }

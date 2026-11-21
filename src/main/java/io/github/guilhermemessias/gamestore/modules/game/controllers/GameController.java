@@ -1,6 +1,8 @@
 package io.github.guilhermemessias.gamestore.modules.game.controllers;
 
 import io.github.guilhermemessias.gamestore.modules.game.GameEntity;
+import io.github.guilhermemessias.gamestore.modules.game.dtos.request.CreateGameRequestDTO;
+import io.github.guilhermemessias.gamestore.modules.game.dtos.response.CreateGameResponseDTO;
 import io.github.guilhermemessias.gamestore.modules.game.services.GameService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,9 @@ public class GameController {
     private GameService gameService;
 
     @PostMapping
-    public ResponseEntity<GameEntity> createGame(@Valid @RequestBody GameEntity gameEntity) {
+    public ResponseEntity<CreateGameResponseDTO> createGame(@Valid @RequestBody CreateGameRequestDTO gameEntity) {
         var result = gameService.createGame(gameEntity);
 
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok().body(new CreateGameResponseDTO(result.getId(), result.getTitle(), result.getGenre(), result.getPrice(), result.getCreatedAt()));
     }
 }
