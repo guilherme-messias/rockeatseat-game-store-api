@@ -3,6 +3,7 @@ package io.github.guilhermemessias.gamestore.modules.exception;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,4 +30,9 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<List<ErrorMessageDTO>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", "Corpo da requisição inválido ou malformado. Verifique a sintaxe do JSON e os tipos dos campos enviados..");
+        return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
+    }
 }
