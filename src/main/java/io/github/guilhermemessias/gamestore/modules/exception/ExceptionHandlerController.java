@@ -1,5 +1,6 @@
 package io.github.guilhermemessias.gamestore.modules.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,14 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<List<ErrorMessageDTO>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+    public ResponseEntity handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", "Corpo da requisição inválido ou malformado. Verifique a sintaxe do JSON e os tipos dos campos enviados..");
         return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity handleEntityNotFoundException(EntityNotFoundException ex) {
+        ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", ex.getMessage());
+        return new ResponseEntity(errorMessage, HttpStatus.NOT_FOUND);
     }
 }

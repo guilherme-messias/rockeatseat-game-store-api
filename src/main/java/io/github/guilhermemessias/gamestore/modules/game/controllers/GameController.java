@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/jogos")
@@ -34,5 +35,12 @@ public class GameController {
 
         return ResponseEntity.ok().body(result.map(game -> new GetGameResponseDTO(game.getId(),
                 game.getTitle(), game.getGenre(), game.getPrice(), game.getCreatedAt())));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetGameResponseDTO> getGameById(@PathVariable UUID id) {
+        var result = gameService.findById(id);
+        return ResponseEntity.ok().body(new GetGameResponseDTO(result.getId(),
+                result.getTitle(), result.getGenre(), result.getPrice(), result.getCreatedAt()));
     }
 }

@@ -3,6 +3,7 @@ package io.github.guilhermemessias.gamestore.modules.game.services;
 import io.github.guilhermemessias.gamestore.modules.game.GameEntity;
 import io.github.guilhermemessias.gamestore.modules.game.dtos.request.CreateGameRequestDTO;
 import io.github.guilhermemessias.gamestore.modules.game.repositories.GameRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GameService {
@@ -22,5 +24,10 @@ public class GameService {
 
     public Page<GameEntity> findAll(Pageable pageable) {
         return this.gameRepository.findAll(pageable);
+    }
+
+    public GameEntity findById(UUID id) {
+        return this.gameRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Usuário não encontrado com o ID: " + id));
     }
 }
