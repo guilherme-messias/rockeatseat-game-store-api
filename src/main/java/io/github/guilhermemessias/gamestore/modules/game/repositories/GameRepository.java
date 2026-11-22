@@ -11,4 +11,6 @@ public interface GameRepository extends JpaRepository<GameEntity, UUID> {
     List<GameEntity> findByTitleContainingIgnoreCase(String titulo);
 
     List<GameEntity> findByGenre(Genre genero);
+
+    GameEntity findTopByOrderByPriceDesc();
 }

@@ -47,4 +47,12 @@ public class GameService {
         }
         return games;
     }
+
+    public GameEntity findMostExpensiveGame() {
+        GameEntity game = this.gameRepository.findTopByOrderByPriceDesc();
+        if (game == null) {
+            throw new EntityNotFoundException("Nenhum jogo encontrado.");
+        }
+        return game;
+    }
 }

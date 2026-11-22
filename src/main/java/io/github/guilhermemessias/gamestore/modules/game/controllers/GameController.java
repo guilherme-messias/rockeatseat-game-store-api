@@ -69,4 +69,12 @@ public class GameController {
         return ResponseEntity.ok().body(result.map(game -> new GetGameResponseDTO(game.getId(),
                 game.getTitle(), game.getGenre(), game.getPrice(), game.getCreatedAt())));
     }
+
+    @GetMapping("/mais-caro")
+    public ResponseEntity<GetGameResponseDTO> getMostExpensiveGame() {
+        var result = gameService.findMostExpensiveGame();
+        return ResponseEntity.ok().body(new GetGameResponseDTO(result.getId(),
+                result.getTitle(), result.getGenre(), result.getPrice(), result.getCreatedAt()));
+    }
+
 }
