@@ -6,6 +6,8 @@ import io.github.guilhermemessias.gamestore.modules.client.exception.ExistingCli
 import io.github.guilhermemessias.gamestore.modules.client.repositories.ClientRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,5 +26,9 @@ public class ClientService {
         System.out.println("não existe um cliente com o e-mail: " + clientEntity.email() + ", então vou criar um novo cliente");
 
         return this.clientRepository.save(new ClientEntity(clientEntity));
+    }
+
+    public Page<ClientEntity> findAll(Pageable pageable) {
+        return this.clientRepository.findAll(pageable);
     }
 }
