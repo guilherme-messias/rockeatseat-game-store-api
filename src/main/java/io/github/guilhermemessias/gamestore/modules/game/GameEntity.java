@@ -27,8 +27,9 @@ public class GameEntity {
     @NotNull(message = "Gênero não pode ser nulo")
     private Genre genre;
 
+    @NotNull(message = "Preço não pode ser nulo")
     @Min(value = 1, message = "O preço do jogo deve ser maior que zero")
-    private double price;
+    private Double price;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
