@@ -77,4 +77,12 @@ public class GameController {
                 result.getTitle(), result.getGenre(), result.getPrice(), result.getCreatedAt()));
     }
 
+    @GetMapping("/cadastrados-no-ano-atual")
+    public ResponseEntity<List<GetGameResponseDTO>> getGamesRegisteredInCurrentYear() {
+        var result = gameService.findGamesRegisteredInCurrentYear();
+
+        return ResponseEntity.ok().body(result.stream().map(game -> new GetGameResponseDTO(game.getId(),
+                game.getTitle(), game.getGenre(), game.getPrice(), game.getCreatedAt())).toList());
+    }
+
 }

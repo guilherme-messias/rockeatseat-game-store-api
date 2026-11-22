@@ -55,4 +55,16 @@ public class GameService {
         }
         return game;
     }
+
+    public List<GameEntity> findGamesRegisteredInCurrentYear() {
+        int currentYear = java.time.Year.now().getValue();
+        List<GameEntity> games = this.gameRepository.findAll().stream()
+                .filter(game -> game.getCreatedAt().getYear() == currentYear)
+                .toList();
+
+        if (games.isEmpty()) {
+            throw new EntityNotFoundException("Nenhum jogo registrado no ano atual: " + currentYear);
+        }
+        return games;
+    }
 }
