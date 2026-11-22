@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,5 +60,13 @@ public class GameController {
 
         return ResponseEntity.ok().body(result.stream().map(game -> new GetGameResponseDTO(game.getId(),
                 game.getTitle(), game.getGenre(), game.getPrice(), game.getCreatedAt())).toList());
+    }
+
+    @GetMapping("ordenados-por-preco")
+    public ResponseEntity<Page<GetGameResponseDTO>> getGamesOrderedByPrice(@PageableDefault(sort = "price") Pageable pageable) {
+        var result = gameService.findAll(pageable);
+
+        return ResponseEntity.ok().body(result.map(game -> new GetGameResponseDTO(game.getId(),
+                game.getTitle(), game.getGenre(), game.getPrice(), game.getCreatedAt())));
     }
 }
