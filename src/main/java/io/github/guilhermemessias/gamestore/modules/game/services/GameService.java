@@ -2,6 +2,7 @@ package io.github.guilhermemessias.gamestore.modules.game.services;
 
 import io.github.guilhermemessias.gamestore.modules.game.GameEntity;
 import io.github.guilhermemessias.gamestore.modules.game.dtos.request.CreateGameRequestDTO;
+import io.github.guilhermemessias.gamestore.modules.game.enums.Genre;
 import io.github.guilhermemessias.gamestore.modules.game.repositories.GameRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -35,6 +36,14 @@ public class GameService {
         List<GameEntity> games = this.gameRepository.findByTitleContainingIgnoreCase(titulo);
         if (games.isEmpty()) {
             throw new EntityNotFoundException("Nenhum jogo encontrado com o título: " + titulo);
+        }
+        return games;
+    }
+
+    public List<GameEntity> findByGenre(Genre genero) {
+        List<GameEntity> games = this.gameRepository.findByGenre(genero);
+        if (games.isEmpty()) {
+            throw new EntityNotFoundException("Nenhum jogo encontrado com o gênero: " + genero);
         }
         return games;
     }

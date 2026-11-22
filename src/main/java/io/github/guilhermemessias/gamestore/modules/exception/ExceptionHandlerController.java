@@ -33,7 +33,8 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
-        ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", "Corpo da requisição inválido ou malformado. Verifique a sintaxe do JSON e os tipos dos campos enviados..");
+        ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", "Corpo da requisição inválido" +
+                " ou malformado. Verifique a sintaxe do JSON e os tipos dos campos enviados.");
         return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
@@ -41,5 +42,12 @@ public class ExceptionHandlerController {
     public ResponseEntity handleEntityNotFoundException(EntityNotFoundException ex) {
         ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", ex.getMessage());
         return new ResponseEntity(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity handleIllegalArgumentException(IllegalArgumentException ex) {
+        ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", "O valor informado" +
+                " é inválido ou não corresponde a nenhuma opção permitida.");
+        return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }

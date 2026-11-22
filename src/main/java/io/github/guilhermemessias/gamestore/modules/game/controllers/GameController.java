@@ -4,6 +4,7 @@ import io.github.guilhermemessias.gamestore.modules.game.GameEntity;
 import io.github.guilhermemessias.gamestore.modules.game.dtos.request.CreateGameRequestDTO;
 import io.github.guilhermemessias.gamestore.modules.game.dtos.response.CreateGameResponseDTO;
 import io.github.guilhermemessias.gamestore.modules.game.dtos.response.GetGameResponseDTO;
+import io.github.guilhermemessias.gamestore.modules.game.enums.Genre;
 import io.github.guilhermemessias.gamestore.modules.game.services.GameService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,14 @@ public class GameController {
     @GetMapping("/buscar")
     public ResponseEntity<List<GetGameResponseDTO>> getGamesByTitle(@RequestParam String titulo) {
         var result = gameService.findByTitle(titulo);
+
+        return ResponseEntity.ok().body(result.stream().map(game -> new GetGameResponseDTO(game.getId(),
+                game.getTitle(), game.getGenre(), game.getPrice(), game.getCreatedAt())).toList());
+    }
+
+    @GetMapping("/genero/{genero}")
+    public ResponseEntity<List<GetGameResponseDTO>> getGamesByGenre(@PathVariable Genre genero) {
+        var result = gameService.findByGenre(genero);
 
         return ResponseEntity.ok().body(result.stream().map(game -> new GetGameResponseDTO(game.getId(),
                 game.getTitle(), game.getGenre(), game.getPrice(), game.getCreatedAt())).toList());
