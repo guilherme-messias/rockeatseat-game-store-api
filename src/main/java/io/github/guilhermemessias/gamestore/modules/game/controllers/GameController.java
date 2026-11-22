@@ -1,6 +1,5 @@
 package io.github.guilhermemessias.gamestore.modules.game.controllers;
 
-import io.github.guilhermemessias.gamestore.modules.game.GameEntity;
 import io.github.guilhermemessias.gamestore.modules.game.dtos.request.CreateGameRequestDTO;
 import io.github.guilhermemessias.gamestore.modules.game.dtos.response.CreateGameResponseDTO;
 import io.github.guilhermemessias.gamestore.modules.game.dtos.response.GetGameResponseDTO;

@@ -1,7 +1,6 @@
 package io.github.guilhermemessias.gamestore.modules.exception;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -15,7 +14,7 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
-    public ExceptionHandlerController(MessageSource messageSource) {
+    public ExceptionHandlerController() {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -32,22 +31,22 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+    public ResponseEntity<ErrorMessageDTO> handleHttpMessageNotReadableException() {
         ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", "Corpo da requisição inválido" +
                 " ou malformado. Verifique a sintaxe do JSON e os tipos dos campos enviados.");
-        return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity handleEntityNotFoundException(EntityNotFoundException ex) {
+    public ResponseEntity<ErrorMessageDTO> handleEntityNotFoundException(EntityNotFoundException ex) {
         ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", ex.getMessage());
-        return new ResponseEntity(errorMessage, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity handleIllegalArgumentException(IllegalArgumentException ex) {
+    public ResponseEntity<ErrorMessageDTO> handleIllegalArgumentException() {
         ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", "O valor informado" +
                 " é inválido ou não corresponde a nenhuma opção permitida.");
-        return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }
