@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClientController {
@@ -32,5 +34,12 @@ public class ClientController {
 
         return ResponseEntity.ok().body(result.map(client -> new GetClientResponseDTO(client.getId(),
                 client.getName(), client.getEmail(), client.getCreatedAt())));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetClientResponseDTO> getClientById(@PathVariable UUID id) {
+        var result = clientService.findById(id);
+        return ResponseEntity.ok().body(new GetClientResponseDTO(result.getId(),
+                result.getName(), result.getEmail(), result.getCreatedAt()));
     }
 }

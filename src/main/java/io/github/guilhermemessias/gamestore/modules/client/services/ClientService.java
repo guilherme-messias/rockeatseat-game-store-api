@@ -4,11 +4,14 @@ import io.github.guilhermemessias.gamestore.modules.client.ClientEntity;
 import io.github.guilhermemessias.gamestore.modules.client.dtos.request.CreateClientRequestDTO;
 import io.github.guilhermemessias.gamestore.modules.client.exception.ExistingClient;
 import io.github.guilhermemessias.gamestore.modules.client.repositories.ClientRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class ClientService {
@@ -30,5 +33,10 @@ public class ClientService {
 
     public Page<ClientEntity> findAll(Pageable pageable) {
         return this.clientRepository.findAll(pageable);
+    }
+
+    public ClientEntity findById(UUID id) {
+        return this.clientRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Cliente não encontrado com o ID: " + id));
     }
 }
