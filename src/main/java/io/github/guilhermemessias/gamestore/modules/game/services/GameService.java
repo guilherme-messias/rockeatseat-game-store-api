@@ -28,6 +28,14 @@ public class GameService {
 
     public GameEntity findById(UUID id) {
         return this.gameRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Usuário não encontrado com o ID: " + id));
+                new EntityNotFoundException("Jogo não encontrado com o ID: " + id));
+    }
+
+    public List<GameEntity> findByTitle(String titulo) {
+        List<GameEntity> games = this.gameRepository.findByTitleContainingIgnoreCase(titulo);
+        if (games.isEmpty()) {
+            throw new EntityNotFoundException("Nenhum jogo encontrado com o título: " + titulo);
+        }
+        return games;
     }
 }

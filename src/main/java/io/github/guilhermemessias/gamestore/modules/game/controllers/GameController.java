@@ -43,4 +43,12 @@ public class GameController {
         return ResponseEntity.ok().body(new GetGameResponseDTO(result.getId(),
                 result.getTitle(), result.getGenre(), result.getPrice(), result.getCreatedAt()));
     }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<GetGameResponseDTO>> getGamesByTitle(@RequestParam String titulo) {
+        var result = gameService.findByTitle(titulo);
+
+        return ResponseEntity.ok().body(result.stream().map(game -> new GetGameResponseDTO(game.getId(),
+                game.getTitle(), game.getGenre(), game.getPrice(), game.getCreatedAt())).toList());
+    }
 }
