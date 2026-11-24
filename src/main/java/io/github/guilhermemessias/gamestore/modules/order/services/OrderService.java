@@ -13,13 +13,10 @@ import io.github.guilhermemessias.gamestore.modules.order.repositories.OrderRepo
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
-
-import static java.util.UUID.fromString;
 
 @Service
 public class OrderService {
@@ -59,6 +56,6 @@ public class OrderService {
         ClientEntity client = this.clientRepository.findById(clientId)
                 .orElseThrow(() -> new ExistingClient("Cliente não encontrado com o ID: " + clientId));
 
-        return this.orderRepository.findAllByClient_Id(clientId, pageable);
+        return this.orderRepository.findAllByClient_Id(client.getId(), pageable);
     }
 }
