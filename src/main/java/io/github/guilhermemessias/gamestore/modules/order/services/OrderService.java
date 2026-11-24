@@ -12,6 +12,8 @@ import io.github.guilhermemessias.gamestore.modules.order.dtos.request.CreateOrd
 import io.github.guilhermemessias.gamestore.modules.order.repositories.OrderRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,5 +44,9 @@ public class OrderService {
         order.setPrice(game.getPrice());
 
         return this.orderRepository.save(order);
+    }
+
+    public Page<OrderEntity> findAll(Pageable pageable) {
+        return this.orderRepository.findAll(pageable);
     }
 }

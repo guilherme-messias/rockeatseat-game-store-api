@@ -2,9 +2,7 @@ package io.github.guilhermemessias.gamestore.modules.order;
 
 import io.github.guilhermemessias.gamestore.modules.client.ClientEntity;
 import io.github.guilhermemessias.gamestore.modules.game.GameEntity;
-import io.github.guilhermemessias.gamestore.modules.order.dtos.request.CreateOrderRequestDTO;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
