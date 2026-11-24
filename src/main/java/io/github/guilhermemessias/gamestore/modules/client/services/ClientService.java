@@ -2,7 +2,7 @@ package io.github.guilhermemessias.gamestore.modules.client.services;
 
 import io.github.guilhermemessias.gamestore.modules.client.ClientEntity;
 import io.github.guilhermemessias.gamestore.modules.client.dtos.request.CreateClientRequestDTO;
-import io.github.guilhermemessias.gamestore.modules.client.exception.ExistingClient;
+import io.github.guilhermemessias.gamestore.modules.exception.ExistingClient;
 import io.github.guilhermemessias.gamestore.modules.client.repositories.ClientRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
