@@ -1,6 +1,5 @@
 package io.github.guilhermemessias.gamestore.modules.exception;
 
-import io.github.guilhermemessias.gamestore.modules.client.exception.ExistingClient;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +52,18 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(ExistingClient.class)
     public ResponseEntity<ErrorMessageDTO> handleExistingClientException(ExistingClient ex) {
+        ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", ex.getMessage());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ExistingGame.class)
+    public ResponseEntity<ErrorMessageDTO> handleExistingGameException(ExistingGame ex) {
+        ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", ex.getMessage());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateGameOrderException.class)
+    public ResponseEntity<ErrorMessageDTO> handleDuplicateGameOrderException(DuplicateGameOrderException ex) {
         ErrorMessageDTO errorMessage = new ErrorMessageDTO("message", ex.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
