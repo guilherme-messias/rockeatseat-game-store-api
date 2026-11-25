@@ -1,6 +1,7 @@
 package io.github.guilhermemessias.gamestore.modules.reports.controllers;
 
 import io.github.guilhermemessias.gamestore.modules.reports.dtos.response.GetGenresWithRegisteredGamesResponseDTO;
+import io.github.guilhermemessias.gamestore.modules.reports.dtos.response.GetSalesByGenreResponseDTO;
 import io.github.guilhermemessias.gamestore.modules.reports.services.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,5 +19,10 @@ public class ReportController {
     @GetMapping("/generos")
     public List<GetGenresWithRegisteredGamesResponseDTO> getGenresWithRegisteredGames() {
         return reportService.getGenresWithRegisteredGames();
+    }
+
+    @GetMapping("/vendas-por-genero")
+    public List<GetSalesByGenreResponseDTO> getSalesByGenre() {
+        return reportService.getSalesByGenre();
     }
 }

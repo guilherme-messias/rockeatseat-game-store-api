@@ -1,5 +1,6 @@
 package io.github.guilhermemessias.gamestore.modules.order.repositories;
 
+import io.github.guilhermemessias.gamestore.modules.game.enums.Genre;
 import io.github.guilhermemessias.gamestore.modules.order.OrderEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,6 @@ public interface OrderRepository extends JpaRepository<OrderEntity, UUID> {
     Page<OrderEntity> findAllByClient_Id(UUID id, Pageable pageable);
 
     boolean existsByClient_IdAndGame_Id(UUID id, UUID gameId);
+
+    Long countByGameGenre(Genre genre);
 }
