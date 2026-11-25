@@ -13,7 +13,5 @@ public interface OrderRepository extends JpaRepository<OrderEntity, UUID> {
 
     Page<OrderEntity> findAllByClient_Id(UUID id, Pageable pageable);
 
-    List<OrderEntity> findAllByGame_Id(UUID id);
-
     boolean existsByClient_IdAndGame_Id(UUID id, UUID gameId);
 }
