@@ -10,7 +10,10 @@ import java.util.UUID;
 public interface GameRepository extends JpaRepository<GameEntity, UUID> {
     List<GameEntity> findByTitleContainingIgnoreCase(String titulo);
 
-    List<GameEntity> findByGenre(Genre genero);
+    List<GameEntity> findByGenre(Genre genre);
 
     GameEntity findTopByOrderByPriceDesc();
+
+    Long countByGenre(Genre genre);
+
 }
