@@ -39,4 +39,10 @@ public class OrderController {
         return ResponseEntity.ok().body(result.map(order -> new GetOrderResponseDTO(order.getId(),
                 order.getClient().getId(), order.getGame().getId(), order.getPrice(), order.getCreatedAt())));
     }
+
+    @GetMapping("/clientes/{clientId}/total-gasto")
+    public ResponseEntity<Double> getTotalSpentByClientId(@PathVariable UUID clientId) {
+        var result = orderService.calculateTotalSpent(clientId);
+        return ResponseEntity.ok().body(result);
+    }
 }

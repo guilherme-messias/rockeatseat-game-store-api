@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -57,5 +58,21 @@ public class OrderService {
                 .orElseThrow(() -> new ExistingClient("Cliente não encontrado com o ID: " + clientId));
 
         return this.orderRepository.findAllByClient_Id(client.getId(), pageable);
+    }
+
+    public Double calculateTotalSpent(UUID clientId) {
+        if (!this.clientRepository.existsById(clientId)) {
+            throw new ExistingClient("Cliente não encontrado com o ID: " + clientId);
+        }
+
+        List<OrderEntity> orders = this.orderRepository.findAllByClient_Id(clientId);
+
+        if (orders.isEmpty()) {
+            return 0.0;
+        }
+
+        return orders.stream()
+                .mapToDouble(OrderEntity::getPrice)
+                .sum();
     }
 }
